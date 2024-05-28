@@ -1,0 +1,45 @@
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+    branches:
+      - master
+      - develop
+    types: [opened, reopened, synchronize]
+  workflow_call:
+  workflow_dispatch:
+
+name: ci-build
+
+env:
+  DOTNET_VERSION: 8.0.x
+  REGISTRY: ghcr.io
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK ${{ env.DOTNET_VERSION }}
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Publish API
+        run: dotnet build OpenShock.Serialization.Flatbuffers.csproj -c Release -o ./publish
+
+      - name: Upload Nuget artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: API
+          path: |
+            publish/*.nupkg
+            publish/*.snupkg
+          retention-days: 1
+          if-no-files-found: error
