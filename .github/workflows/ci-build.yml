@@ -37,9 +37,11 @@ jobs:
       - name: Upload Nuget artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: OpenShock.Serialization.Flatbuffers Nuget artifacts
+          name: CSharp Artifacts
           path: |
             publish/*.nupkg
             publish/*.snupkg
+            publish/*.dll
+            publish/*.pdb
           retention-days: 1
           if-no-files-found: error
