@@ -37,7 +37,7 @@ jobs:
       - name: Upload Nuget artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: API
+          name: OpenShock.Serialization.Flatbuffers Nuget artifacts
           path: |
             publish/*.nupkg
             publish/*.snupkg
