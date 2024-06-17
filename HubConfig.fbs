@@ -101,13 +101,13 @@ table OtaUpdateConfig {
 }
 
 table NetworkConfig {
-  /// The IP address of the main DNS server
-  dns_main:string;
+  /// The primary DNS server
+  dns_primary:string;
 
-  /// The IP address of the backup DNS server
-  dns_backup:string;
+  /// The secondary DNS server
+  dns_secondary:string;
 
-  /// The IP address of the fallback DNS server
+  /// The fallback DNS server (used if the primary and secondary DNS servers fail)
   dns_fallback:string;
 }
 
