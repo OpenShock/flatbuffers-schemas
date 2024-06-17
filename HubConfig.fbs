@@ -100,6 +100,17 @@ table OtaUpdateConfig {
   update_step:OtaUpdateStep;
 }
 
+table NetworkConfig {
+  /// The IP address of the main DNS server
+  dns_main:string;
+
+  /// The IP address of the backup DNS server
+  dns_backup:string;
+
+  /// The IP address of the fallback DNS server
+  dns_fallback:string;
+}
+
 table HubConfig {
   /// RF Transmitter configuration
   rf:RFConfig;
@@ -118,4 +129,7 @@ table HubConfig {
 
   /// OTA update configuration
   ota_update:OtaUpdateConfig;
+
+  /// Network configuration
+  network:NetworkConfig;
 }
