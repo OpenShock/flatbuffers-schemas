@@ -101,6 +101,9 @@ table OtaUpdateConfig {
 }
 
 table NetworkConfig {
+  /// If true, DNS will be configured automatically by the DHCP server, otherwise the configured DNS servers will be used
+  dns_auto:bool;
+
   /// The primary DNS server
   dns_primary:string;
 
