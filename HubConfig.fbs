@@ -102,15 +102,15 @@ table OtaUpdateConfig {
 
 table DnsConfig {
   /// Whether to use DHCP to automatically configure the network
-  auto:bool;
+  use_dhcp:bool;
 
-  /// The primary DNS server
+  /// The primary DNS server (overridden by DHCP if auto is true)
   primary:string;
 
-  /// The secondary DNS server
+  /// The secondary DNS server (overridden by DHCP if auto is true)
   secondary:string;
 
-  /// The fallback DNS server
+  /// The fallback DNS server (used if the primary and secondary DNS servers fail both in auto and manual mode)
   fallback:string;
 }
 
