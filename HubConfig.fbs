@@ -100,18 +100,18 @@ table OtaUpdateConfig {
   update_step:OtaUpdateStep;
 }
 
-table NetworkConfig {
-  /// If true, DNS will be configured automatically by the DHCP server, otherwise the configured DNS servers will be used
-  dns_auto:bool;
+table DnsConfig {
+  /// Whether to use DHCP to automatically configure the network
+  auto:bool;
 
   /// The primary DNS server
-  dns_primary:string;
+  primary:string;
 
   /// The secondary DNS server
-  dns_secondary:string;
+  secondary:string;
 
-  /// The fallback DNS server (used if the primary and secondary DNS servers fail)
-  dns_fallback:string;
+  /// The fallback DNS server
+  fallback:string;
 }
 
 table HubConfig {
@@ -133,6 +133,6 @@ table HubConfig {
   /// OTA update configuration
   ota_update:OtaUpdateConfig;
 
-  /// Network configuration
-  network:NetworkConfig;
+  /// DNS configuration
+  dns:DnsConfig;
 }
