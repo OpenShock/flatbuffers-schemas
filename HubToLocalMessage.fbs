@@ -8,10 +8,16 @@ attribute "fs_serializer";
 namespace OpenShock.Serialization.Local;
 
 table ReadyMessage {
+  /// Poggies is always true
   poggies:bool;
+
+  /// The wifi network the hub is currently connected to
   connected_wifi:Types.WifiNetwork;
+
+  /// Whether the device is linked to an account. (Has a valid access token)
   account_linked:bool;
 
+  /// The configuration of the device with sensitive information redacted
   config:Configuration.HubConfig;
 }
 
@@ -26,10 +32,7 @@ table WifiNetworkEvent {
   event_type:Types.WifiNetworkEventType;
   networks:[Types.WifiNetwork];
 }
-table WifiGotIpEvent {
-  ip:string;
-}
-table WifiLostIpEvent {
+table WifiIpChangedEvent {
   ip:string;
 }
 
@@ -65,8 +68,7 @@ union HubToLocalMessagePayload {
   // Wifi stuff
   WifiScanStatusMessage,
   WifiNetworkEvent,
-  WifiGotIpEvent,
-  WifiLostIpEvent,
+  WifiIpChangedEvent,
 
   // Account linking stuff
   AccountLinkCommandResult,
