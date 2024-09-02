@@ -100,20 +100,6 @@ table OtaUpdateConfig {
   update_step:OtaUpdateStep;
 }
 
-table DnsConfig {
-  /// Whether to use DHCP to automatically configure the network
-  use_dhcp:bool;
-
-  /// The primary DNS server (overridden by DHCP if auto is true)
-  primary:string;
-
-  /// The secondary DNS server (overridden by DHCP if auto is true)
-  secondary:string;
-
-  /// The fallback DNS server (used if the primary and secondary DNS servers fail both in auto and manual mode)
-  fallback:string;
-}
-
 table HubConfig {
   /// RF Transmitter configuration
   rf:RFConfig;
@@ -132,7 +118,4 @@ table HubConfig {
 
   /// OTA update configuration
   ota_update:OtaUpdateConfig;
-
-  /// DNS configuration
-  dns:DnsConfig;
 }
