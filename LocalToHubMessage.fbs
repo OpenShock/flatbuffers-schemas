@@ -58,6 +58,9 @@ struct AccountUnlinkCommand {
 struct SetRfTxPinCommand {
   pin:uint8;
 }
+struct SetEstopEnabledCommand {
+  enabled:bool;
+}
 struct SetEstopPinCommand {
   pin:uint8;
 }
@@ -90,6 +93,7 @@ union LocalToHubMessagePayload {
   SetRfTxPinCommand,
 
   // E-Stop stuff
+  SetEstopEnabledCommand,
   SetEstopPinCommand
 }
 

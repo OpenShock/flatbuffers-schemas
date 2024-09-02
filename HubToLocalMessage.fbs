@@ -56,6 +56,11 @@ struct SetRfTxPinCommandResult {
   result:SetGPIOResultCode;
 }
 
+struct SetEstopEnabledCommandResult {
+  enabled:bool;
+  result:SetGPIOResultCode;
+}
+
 struct SetEstopPinCommandResult {
   pin:uint8;
   result:SetGPIOResultCode;
@@ -80,6 +85,7 @@ union HubToLocalMessagePayload {
   SetRfTxPinCommandResult,
 
   // E-stop stuff
+  SetEstopEnabledCommandResult,
   SetEstopPinCommandResult
 }
 

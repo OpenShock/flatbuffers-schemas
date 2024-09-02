@@ -9,8 +9,10 @@ table RFConfig {
 }
 
 table EStopConfig {
+  enabled:bool;
+
   /// The GPIO pin connected to the E-Stop button
-  estop_pin:uint8;
+  gpio_pin:uint8;
 }
 
 table WiFiCredentials {
