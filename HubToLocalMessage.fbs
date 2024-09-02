@@ -13,6 +13,8 @@ table ReadyMessage {
   account_linked:bool;
 
   config:Configuration.HubConfig;
+  gpio_valid_inputs:[uint8];
+  gpio_valid_outputs:[uint8];
 }
 
 table ErrorMessage {
