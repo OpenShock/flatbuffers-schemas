@@ -62,7 +62,7 @@ struct SetEstopEnabledCommandResult {
 }
 
 struct SetEstopPinCommandResult {
-  gpioPin:uint8;
+  gpio_pin:uint8;
   result:SetGPIOResultCode;
 }
 
