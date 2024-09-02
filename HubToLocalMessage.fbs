@@ -58,11 +58,11 @@ struct SetRfTxPinCommandResult {
 
 struct SetEstopEnabledCommandResult {
   enabled:bool;
-  result:SetGPIOResultCode;
+  success:bool;
 }
 
 struct SetEstopPinCommandResult {
-  pin:uint8;
+  gpioPin:uint8;
   result:SetGPIOResultCode;
 }
 
