@@ -19,7 +19,7 @@ table ErrorMessage {
   message:string;
 }
 
-struct WifiScanStatusMessage {
+table WifiScanStatusMessage {
   status:Types.WifiScanStatus;
 }
 table WifiNetworkEvent {
@@ -42,7 +42,7 @@ enum AccountLinkResultCode : uint8 {
   InternalError = 5
 }
 
-struct AccountLinkCommandResult {
+table AccountLinkCommandResult {
   result:AccountLinkResultCode;
 }
 
@@ -51,17 +51,17 @@ enum SetGPIOResultCode : uint8 {
   InvalidPin = 1,
   InternalError = 2
 }
-struct SetRfTxPinCommandResult {
+table SetRfTxPinCommandResult {
   pin:uint8;
   result:SetGPIOResultCode;
 }
 
-struct SetEstopEnabledCommandResult {
+table SetEstopEnabledCommandResult {
   enabled:bool;
   success:bool;
 }
 
-struct SetEstopPinCommandResult {
+table SetEstopPinCommandResult {
   gpio_pin:uint8;
   result:SetGPIOResultCode;
 }

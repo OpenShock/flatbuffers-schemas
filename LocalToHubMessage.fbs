@@ -2,7 +2,7 @@ attribute "fs_serializer";
 
 namespace OpenShock.Serialization.Local;
 
-struct WifiScanCommand {
+table WifiScanCommand {
   run:bool;
 }
 table WifiNetworkSaveCommand {
@@ -16,11 +16,11 @@ table WifiNetworkForgetCommand {
 table WifiNetworkConnectCommand {
   ssid:string;
 }
-struct WifiNetworkDisconnectCommand {
+table WifiNetworkDisconnectCommand {
   placeholder:bool;
 }
 
-struct OtaUpdateSetIsEnabledCommand {
+table OtaUpdateSetIsEnabledCommand {
   enabled:bool;
 }
 table OtaUpdateSetDomainCommand {
@@ -29,16 +29,16 @@ table OtaUpdateSetDomainCommand {
 table OtaUpdateSetUpdateChannelCommand {
   channel:string;
 }
-struct OtaUpdateSetCheckIntervalCommand {
+table OtaUpdateSetCheckIntervalCommand {
   interval:uint16;
 }
-struct OtaUpdateSetAllowBackendManagementCommand {
+table OtaUpdateSetAllowBackendManagementCommand {
   allow:bool;
 }
-struct OtaUpdateSetRequireManualApprovalCommand {
+table OtaUpdateSetRequireManualApprovalCommand {
   require:bool;
 }
-struct OtaUpdateHandleUpdateRequestCommand {
+table OtaUpdateHandleUpdateRequestCommand {
   accept:bool;
 }
 table OtaUpdateCheckForUpdatesCommand {
@@ -52,16 +52,16 @@ table OtaUpdateStartUpdateCommand {
 table AccountLinkCommand {
   code:string;
 }
-struct AccountUnlinkCommand {
+table AccountUnlinkCommand {
   placeholder:bool;
 }
-struct SetRfTxPinCommand {
+table SetRfTxPinCommand {
   pin:uint8;
 }
-struct SetEstopEnabledCommand {
+table SetEstopEnabledCommand {
   enabled:bool;
 }
-struct SetEstopPinCommand {
+table SetEstopPinCommand {
   pin:uint8;
 }
 
