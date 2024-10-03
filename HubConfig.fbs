@@ -8,6 +8,13 @@ table RFConfig {
   keepalive_enabled:bool;
 }
 
+table EStopConfig {
+  enabled:bool;
+
+  /// The GPIO pin connected to the E-Stop button
+  gpio_pin:uint8;
+}
+
 table WiFiCredentials {
   /// ID of the WiFi network credentials, used for referencing the credentials with a low memory footprint
   id:uint8;
@@ -118,4 +125,7 @@ table HubConfig {
 
   /// OTA update configuration
   ota_update:OtaUpdateConfig;
+  
+  /// E-Stop configuration
+  estop:EStopConfig;
 }

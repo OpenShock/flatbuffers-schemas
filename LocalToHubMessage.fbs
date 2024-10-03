@@ -58,6 +58,12 @@ struct AccountUnlinkCommand {
 struct SetRfTxPinCommand {
   pin:uint8;
 }
+struct SetEstopEnabledCommand {
+  enabled:bool;
+}
+struct SetEstopPinCommand {
+  pin:uint8;
+}
 
 union LocalToHubMessagePayload {
 
@@ -84,7 +90,11 @@ union LocalToHubMessagePayload {
   AccountUnlinkCommand,
 
   // RF Transmitter stuff
-  SetRfTxPinCommand
+  SetRfTxPinCommand,
+
+  // E-Stop stuff
+  SetEstopEnabledCommand,
+  SetEstopPinCommand
 }
 
 table LocalToHubMessage (fs_serializer) {
