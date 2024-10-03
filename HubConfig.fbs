@@ -129,3 +129,5 @@ table HubConfig {
   /// E-Stop configuration
   estop:EStopConfig;
 }
+
+root_type HubConfig;
