@@ -56,13 +56,13 @@ table AccountUnlinkCommand {
   placeholder:bool;
 }
 table SetRfTxPinCommand {
-  pin:uint8;
+  pin:int8;
 }
 table SetEstopEnabledCommand {
   enabled:bool;
 }
 table SetEstopPinCommand {
-  pin:uint8;
+  pin:int8;
 }
 
 union LocalToHubMessagePayload {

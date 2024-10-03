@@ -2,7 +2,7 @@ namespace OpenShock.Serialization.Configuration;
 
 table RFConfig {
   /// The GPIO pin connected to the RF modulator's data pin for transmitting (TX)
-  tx_pin:uint8;
+  tx_pin:int8;
 
   /// Whether to transmit keepalive messages to keep the shockers from entering sleep mode
   keepalive_enabled:bool;
@@ -12,7 +12,7 @@ table EStopConfig {
   enabled:bool;
 
   /// The GPIO pin connected to the E-Stop button
-  gpio_pin:uint8;
+  gpio_pin:int8;
 }
 
 table WiFiCredentials {
