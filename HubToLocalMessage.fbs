@@ -52,7 +52,7 @@ enum SetGPIOResultCode : uint8 {
   InternalError = 2
 }
 table SetRfTxPinCommandResult {
-  pin:uint8;
+  pin:int8;
   result:SetGPIOResultCode;
 }
 
@@ -62,7 +62,7 @@ table SetEstopEnabledCommandResult {
 }
 
 table SetEstopPinCommandResult {
-  gpio_pin:uint8;
+  gpio_pin:int8;
   result:SetGPIOResultCode;
 }
 
