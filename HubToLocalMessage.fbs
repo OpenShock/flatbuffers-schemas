@@ -21,7 +21,7 @@ table ErrorMessage {
   message:string;
 }
 
-struct WifiScanStatusMessage {
+table WifiScanStatusMessage {
   status:Types.WifiScanStatus;
 }
 table WifiNetworkEvent {
@@ -44,18 +44,28 @@ enum AccountLinkResultCode : uint8 {
   InternalError = 5
 }
 
-struct AccountLinkCommandResult {
+table AccountLinkCommandResult {
   result:AccountLinkResultCode;
 }
 
-enum SetRfPinResultCode : uint8 {
+enum SetGPIOResultCode : uint8 {
   Success = 0,
   InvalidPin = 1,
   InternalError = 2
 }
-struct SetRfTxPinCommandResult {
-  pin:uint8;
-  result:SetRfPinResultCode;
+table SetRfTxPinCommandResult {
+  pin:int8;
+  result:SetGPIOResultCode;
+}
+
+table SetEstopEnabledCommandResult {
+  enabled:bool;
+  success:bool;
+}
+
+table SetEstopPinCommandResult {
+  gpio_pin:int8;
+  result:SetGPIOResultCode;
 }
 
 union HubToLocalMessagePayload {
@@ -74,7 +84,11 @@ union HubToLocalMessagePayload {
   AccountLinkCommandResult,
 
   // RF transmitter stuff
-  SetRfTxPinCommandResult
+  SetRfTxPinCommandResult,
+
+  // E-stop stuff
+  SetEstopEnabledCommandResult,
+  SetEstopPinCommandResult
 }
 
 table HubToLocalMessage (fs_serializer) {
