@@ -6,7 +6,7 @@ attribute "fs_serializer";
 
 namespace OpenShock.Serialization.Gateway;
 
-struct ShockerCommand {
+table ShockerCommand {
   model:Types.ShockerModelType;
   id:uint16;
   type:Types.ShockerCommandType;
@@ -18,7 +18,7 @@ table ShockerCommandList {
   commands:[ShockerCommand] (required);
 }
 
-struct CaptivePortalConfig {
+table CaptivePortalConfig {
   enabled:bool;
 }
 

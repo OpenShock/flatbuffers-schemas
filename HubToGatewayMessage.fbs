@@ -5,7 +5,7 @@ attribute "fs_serializer";
 
 namespace OpenShock.Serialization.Gateway;
 
-struct KeepAlive {
+table KeepAlive {
   uptime:ulong;
 }
 
