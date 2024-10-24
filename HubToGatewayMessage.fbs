@@ -10,7 +10,7 @@ table Pong {
 }
 
 table BootStatus {
-  boot_type:Types.FirmwareBootType (required);
+  boot_type:Types.FirmwareBootType;
   firmware_version:Types.SemVer (required);
   ota_update_id:int32;
 }
@@ -32,7 +32,7 @@ enum OtaInstallProgressTask : uint8 {
 
 table OtaInstallProgress {
   update_id:int32;
-  task:OtaInstallProgressTask (required);
+  task:OtaInstallProgressTask;
   progress:float;
 }
 
