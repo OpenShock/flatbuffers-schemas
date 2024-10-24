@@ -1,4 +1,5 @@
 include "./Types/SemVer.fbs";
+include "./Types/FirmwareBootType.fbs";
 include "./Types/OtaInstallProgressTask.fbs";
 
 attribute "fs_serializer";
@@ -30,7 +31,7 @@ struct KeepAlive {
 }
 
 table BootStatus {
-  boot_type:uint8;
+  boot_type:Types.FirmwareBootType;
   firmware_version:Types.SemVer;
   ota_update_id:int32;
 }
