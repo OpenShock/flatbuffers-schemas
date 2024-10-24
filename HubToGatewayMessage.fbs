@@ -1,5 +1,6 @@
 include "./Types/SemVer.fbs";
 include "./Types/FirmwareBootType.fbs";
+include "./Types/OtaInstallProgressTask.fbs";
 
 attribute "fs_serializer";
 
@@ -20,19 +21,9 @@ table OtaInstallStarted {
   version:Types.SemVer (required);
 }
 
-enum OtaInstallProgressTask : uint8 {
-  FetchingMetadata,
-  PreparingForInstall,
-  FlashingFilesystem,
-  VerifyingFilesystem,
-  FlashingApplication,
-  MarkingApplicationBootable,
-  Rebooting
-}
-
 table OtaInstallProgress {
   update_id:int32;
-  task:OtaInstallProgressTask;
+  task:Types.OtaInstallProgressTask;
   progress:float;
 }
 
