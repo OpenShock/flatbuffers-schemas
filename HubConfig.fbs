@@ -13,6 +13,9 @@ table EStopConfig {
 
   /// The GPIO pin connected to the E-Stop button
   gpio_pin:int8;
+
+  /// Persistent state of the E-Stop button
+  active:bool;
 }
 
 table WiFiCredentials {
