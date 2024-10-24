@@ -10,14 +10,14 @@ table Pong {
 }
 
 table BootStatus {
-  boot_type:Types.FirmwareBootType;
-  firmware_version:Types.SemVer;
+  boot_type:Types.FirmwareBootType (required);
+  firmware_version:Types.SemVer (required);
   ota_update_id:int32;
 }
 
 table OtaInstallStarted {
   update_id:int32;
-  version:Types.SemVer;
+  version:Types.SemVer (required);
 }
 
 enum OtaInstallProgressTask : uint8 {
@@ -32,7 +32,7 @@ enum OtaInstallProgressTask : uint8 {
 
 table OtaInstallProgress {
   update_id:int32;
-  task:OtaInstallProgressTask;
+  task:OtaInstallProgressTask (required);
   progress:float;
 }
 
@@ -51,7 +51,7 @@ union HubToGatewayMessagePayload {
 }
 
 table HubToGatewayMessage (fs_serializer) {
-  payload:HubToGatewayMessagePayload;
+  payload:HubToGatewayMessagePayload (required);
 }
 
 root_type HubToGatewayMessage;
