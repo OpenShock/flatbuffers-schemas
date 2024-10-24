@@ -14,7 +14,7 @@ enum TriggerType : uint8 {
   /// Restart the hub
   Restart,
 
-  /// Trigger the emergency stop on the hub, this does however not allow for resending the emergency stop
+  /// Trigger the emergency stop on the hub, this does however not allow for resetting it
   EmergencyStop,
 
   /// Enable the captive portal
