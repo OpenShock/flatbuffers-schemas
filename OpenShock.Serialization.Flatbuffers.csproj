@@ -18,9 +18,9 @@
         <IncludeSymbols>true</IncludeSymbols>
         <PackageTags>openshock</PackageTags>
         <PackageProjectUrl>https://openshock.org</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/OpenShock/SDK.CSharp</RepositoryUrl>
-        <Version>1.0.0</Version>
-        <AssemblyVersion>1.0.0</AssemblyVersion>
+        <RepositoryUrl>https://github.com/OpenShock/flatbuffers-schemas</RepositoryUrl>
+        <Version>2.0.0-preview</Version>
+        <AssemblyVersion>2.0.0-preview</AssemblyVersion>
         <Company>OpenShock</Company>
         <RootNamespace>OpenShock.Serialization.Flatbuffers</RootNamespace>
         <AssemblyName>OpenShock.Serialization.Flatbuffers</AssemblyName>
