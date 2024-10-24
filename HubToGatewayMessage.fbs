@@ -34,7 +34,10 @@ table OtaInstallFailed {
 }
 
 union HubToGatewayMessagePayload {
+  /// Respond to a ping message
   Pong,
+
+  /// Report the current boot status, used to report firmware version and OTA update results
   BootStatus,
   OtaInstallStarted,
   OtaInstallProgress,

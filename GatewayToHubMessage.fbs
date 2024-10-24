@@ -10,6 +10,24 @@ table Ping {
   unix_utc_time:ulong;
 }
 
+enum TriggerType : uint8 {
+  /// Restart the hub
+  Restart,
+
+  /// Trigger the emergency stop on the hub, this does however not allow for resending the emergency stop
+  EmergencyStop,
+
+  /// Enable the captive portal
+  CaptivePortalEnable,
+
+  /// Disable the captive portal
+  CaptivePortalDisable,
+}
+
+table Trigger {
+  type:TriggerType;
+}
+
 table ShockerCommand {
   model:Types.ShockerModelType;
   id:uint16;
@@ -22,19 +40,22 @@ table ShockerCommandList {
   commands:[ShockerCommand] (required);
 }
 
-table CaptivePortalConfig {
-  force_enable:bool;
-}
-
 // Begin installing an OTA update
 table OtaInstall {
   version:Types.SemVer (required);
 }
 
 union GatewayToHubMessagePayload {
+  /// Ping message, should immediately be responded to with a pong
   Ping,
+
+  /// Trigger a specific action on the hub
+  Trigger,
+
+  /// Send a list of shocker commands to the hub
   ShockerCommandList,
-  CaptivePortalConfig,
+
+  /// Begin installing an OTA update
   OtaInstall
 }
 
