@@ -20,7 +20,7 @@ table OtaInstallStarted {
   version:Types.SemVer;
 }
 
-enum OtaInstallProgressTask:byte {
+enum OtaInstallProgressTask : uint8 {
   FetchingMetadata,
   PreparingForInstall,
   FlashingFilesystem,

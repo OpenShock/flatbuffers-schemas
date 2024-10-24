@@ -37,8 +37,10 @@
     <ItemGroup>
         <FlatSharpSchema Include="HubToGatewayMessage.fbs" />
         <FlatSharpSchema Include="GatewayToHubMessage.fbs" />
-        <FlatSharpSchema Include="Types\ShockerCommandType.fbs" />
-        <FlatSharpSchema Include="Types\ShockerModelType.fbs" />
+        <FlatSharpSchema Include="HubToLocalMessage.fbs" />
+        <FlatSharpSchema Include="LocalToHubMessage.fbs" />
+        <FlatSharpSchema Include="DeprecatedMessages.fbs" />
+        <FlatSharpSchema Include="HubConfig.fbs" />
     </ItemGroup>
 
 

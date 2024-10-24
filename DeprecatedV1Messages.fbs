@@ -1,0 +1,75 @@
+include "./Types/SemVer.fbs";
+
+attribute "fs_serializer";
+
+namespace OpenShock.Serialization.Deprecated.DoNotUse.V1;
+
+struct ShockerCommand {
+  model:uint8;
+  id:uint16;
+  type:uint8;
+  intensity:uint8;
+  duration:uint16;
+}
+
+table ShockerCommandList {
+  commands:[ShockerCommand] (required);
+}
+
+struct CaptivePortalConfig {
+  enabled:bool;
+}
+
+table OtaInstall {
+  version:Types.SemVer;
+}
+
+struct KeepAlive {
+  uptime:ulong;
+}
+
+table BootStatus {
+  boot_type:uint8;
+  firmware_version:Types.SemVer;
+  ota_update_id:int32;
+}
+
+table OtaInstallStarted {
+  update_id:int32;
+  version:Types.SemVer;
+}
+
+table OtaInstallProgress {
+  update_id:int32;
+  task:byte;
+  progress:float;
+}
+
+table OtaInstallFailed {
+  update_id:int32;
+  message:string;
+  fatal:bool;
+}
+
+union GatewayToHubMessagePayload {
+  ShockerCommandList,
+  CaptivePortalConfig,
+  OtaInstall
+}
+union HubToGatewayMessagePayload {
+  KeepAlive,
+  BootStatus,
+  OtaInstallStarted,
+  OtaInstallProgress,
+  OtaInstallFailed
+}
+
+table GatewayToHubMessage (fs_serializer) {
+  payload:GatewayToHubMessagePayload;
+}
+table HubToGatewayMessage (fs_serializer) {
+  payload:HubToGatewayMessagePayload;
+}
+
+root_type GatewayToHubMessage;
+root_type HubToGatewayMessage;
