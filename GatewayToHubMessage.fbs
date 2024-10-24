@@ -6,6 +6,10 @@ attribute "fs_serializer";
 
 namespace OpenShock.Serialization.Gateway;
 
+table Ping {
+  unix_time:ulong;
+}
+
 table ShockerCommand {
   model:Types.ShockerModelType;
   id:uint16;
@@ -28,6 +32,7 @@ table OtaInstall {
 }
 
 union GatewayToHubMessagePayload {
+  Ping,
   ShockerCommandList,
   CaptivePortalConfig,
   OtaInstall

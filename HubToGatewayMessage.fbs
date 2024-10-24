@@ -5,7 +5,7 @@ attribute "fs_serializer";
 
 namespace OpenShock.Serialization.Gateway;
 
-table KeepAlive {
+table Pong {
   uptime:ulong;
 }
 
@@ -43,7 +43,7 @@ table OtaInstallFailed {
 }
 
 union HubToGatewayMessagePayload {
-  KeepAlive,
+  Pong,
   BootStatus,
   OtaInstallStarted,
   OtaInstallProgress,
