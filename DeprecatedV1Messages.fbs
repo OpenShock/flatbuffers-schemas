@@ -1,6 +1,8 @@
 include "./Types/SemVer.fbs";
 include "./Types/FirmwareBootType.fbs";
 include "./Types/OtaUpdateProgressTask.fbs";
+include "./Types/ShockerCommandType.fbs";
+include "./Types/ShockerModelType.fbs";
 
 attribute "fs_serializer";
 
