@@ -1,8 +1,8 @@
 namespace OpenShock.Serialization.Types;
 
-enum OtaInstallProgressTask : uint8 {
+enum OtaUpdateProgressTask : uint8 {
   FetchingMetadata,
-  PreparingForInstall,
+  PreparingForUpdate,
   FlashingFilesystem,
   VerifyingFilesystem,
   FlashingApplication,

@@ -1,6 +1,6 @@
 include "./Types/SemVer.fbs";
 include "./Types/FirmwareBootType.fbs";
-include "./Types/OtaInstallProgressTask.fbs";
+include "./Types/OtaUpdateProgressTask.fbs";
 
 attribute "fs_serializer";
 
@@ -16,18 +16,18 @@ table BootStatus {
   ota_update_id:int32;
 }
 
-table OtaInstallStarted {
+table OtaUpdateStarted {
   update_id:int32;
   version:Types.SemVer (required);
 }
 
-table OtaInstallProgress {
+table OtaUpdateProgress {
   update_id:int32;
-  task:Types.OtaInstallProgressTask;
+  task:Types.OtaUpdateProgressTask;
   progress:float;
 }
 
-table OtaInstallFailed {
+table OtaUpdateFailed {
   update_id:int32;
   message:string;
   fatal:bool;
@@ -39,9 +39,15 @@ union HubToGatewayMessagePayload {
 
   /// Report the current boot status, used to report firmware version and OTA update results
   BootStatus,
-  OtaInstallStarted,
-  OtaInstallProgress,
-  OtaInstallFailed
+
+  /// Report that an OTA update has started
+  OtaUpdateStarted,
+
+  /// Report the progress of an OTA update
+  OtaUpdateProgress,
+
+  /// Report that an OTA update has failed
+  OtaUpdateFailed
 }
 
 table HubToGatewayMessage (fs_serializer) {

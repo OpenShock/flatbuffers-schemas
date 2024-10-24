@@ -1,6 +1,6 @@
 include "./Types/SemVer.fbs";
 include "./Types/FirmwareBootType.fbs";
-include "./Types/OtaInstallProgressTask.fbs";
+include "./Types/OtaUpdateProgressTask.fbs";
 
 attribute "fs_serializer";
 
@@ -43,7 +43,7 @@ table OtaInstallStarted {
 
 table OtaInstallProgress {
   update_id:int32;
-  task:Types.OtaInstallProgressTask;
+  task:Types.OtaUpdateProgressTask;
   progress:float;
 }
 

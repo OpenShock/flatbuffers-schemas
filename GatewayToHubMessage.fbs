@@ -40,8 +40,7 @@ table ShockerCommandList {
   commands:[ShockerCommand] (required);
 }
 
-// Begin installing an OTA update
-table OtaInstall {
+table OtaUpdateRequest {
   version:Types.SemVer (required);
 }
 
@@ -55,8 +54,8 @@ union GatewayToHubMessagePayload {
   /// Send a list of shocker commands to the hub
   ShockerCommandList,
 
-  /// Begin installing an OTA update
-  OtaInstall
+  /// Request an OTA update to be performed
+  OtaUpdateRequest
 }
 
 table GatewayToHubMessage (fs_serializer) {
