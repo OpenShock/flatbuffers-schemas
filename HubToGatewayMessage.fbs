@@ -8,6 +8,7 @@ namespace OpenShock.Serialization.Gateway;
 
 table Pong {
   uptime:uint64;
+  rssi:int32;
 }
 
 table BootStatus {
