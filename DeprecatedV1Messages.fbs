@@ -29,7 +29,7 @@ table OtaInstall {
 }
 
 struct KeepAlive {
-  uptime:ulong;
+  uptime:uint64;
 }
 
 table BootStatus {
@@ -46,7 +46,7 @@ table OtaInstallStarted {
 table OtaInstallProgress {
   update_id:int32;
   task:Types.OtaUpdateProgressTask;
-  progress:float;
+  progress:float32;
 }
 
 table OtaInstallFailed {

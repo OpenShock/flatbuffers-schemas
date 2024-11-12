@@ -7,7 +7,7 @@ attribute "fs_serializer";
 namespace OpenShock.Serialization.Gateway;
 
 table Pong {
-  uptime:ulong;
+  uptime:uint64;
 }
 
 table BootStatus {
@@ -24,7 +24,7 @@ table OtaUpdateStarted {
 table OtaUpdateProgress {
   update_id:int32;
   task:Types.OtaUpdateProgressTask;
-  progress:float;
+  progress:float32;
 }
 
 table OtaUpdateFailed {
