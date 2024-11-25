@@ -14,7 +14,7 @@ on:
 name: ci-build
 
 env:
-  DOTNET_VERSION: 8.0.x
+  DOTNET_VERSION: 9.0.x
   REGISTRY: ghcr.io
 
 jobs:
@@ -32,9 +32,11 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Publish API
+        if: ${{ github.ref_type == 'branch' && github.event_name != 'pull_request' && github.ref_name == 'master' }}
         run: dotnet build OpenShock.Serialization.Flatbuffers.csproj -c Release -o ./publish
 
       - name: Upload Nuget artifacts
+        if: ${{ github.ref_type == 'branch' && github.event_name != 'pull_request' && github.ref_name == 'master' }}
         uses: actions/upload-artifact@v4
         with:
           name: CSharp Artifacts
