@@ -4,8 +4,8 @@
         <SingleProject>true</SingleProject>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <TargetFrameworks>net8.0;netstandard2.1</TargetFrameworks>
-        <LangVersion>12</LangVersion>
+        <TargetFrameworks>net9.0;net8.0;netstandard2.1</TargetFrameworks>
+        <LangVersion>13</LangVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Title>OpenShock.Serialization.Flatbuffers</Title>
         <Authors>OpenShock</Authors>
