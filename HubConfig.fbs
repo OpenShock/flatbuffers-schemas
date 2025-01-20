@@ -4,6 +4,9 @@ table RFConfig {
   /// The GPIO pin connected to the RF modulator's data pin for transmitting (TX)
   tx_pin:int8;
 
+  /// Intentional mistake to test CI
+  rx_pin:int8;
+
   /// Whether to transmit keepalive messages to keep the shockers from entering sleep mode
   keepalive_enabled:bool;
 }
