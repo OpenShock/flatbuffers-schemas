@@ -44,6 +44,8 @@ jobs:
         run: |
           # Return early if any one of the conformity checks fail
           set -e
+          # Set executable flag
+          chmod u+x ./flatc
 
           while IFS= read -r file; do
             # ignore blank lines
