@@ -1,0 +1,53 @@
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+    branches:
+      - master
+      - develop
+    types: [opened, reopened, synchronize]
+  workflow_call:
+  workflow_dispatch:
+
+name: ci-verify
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: new
+
+      - name: Checkout current master
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          path: master
+
+      - name: Download latest flatc g++ binary
+        uses: robinraju/release-downloader@v1.11
+        with:
+          repository: "google/flatbuffers"
+          latest: true
+          fileName: "Linux.flatc.binary.g++*.zip"
+          extract: true
+          # Disabling the default wildcards (*.tar.gz, *.zip)
+          tarBall: false
+          zipBall: false
+
+      - name: Compare specified .fbs files for conformity
+        run: |
+          # Return early if any one of the conformity checks fail
+          set -e
+
+          while IFS= read -r file; do
+            # ignore blank lines
+            [[ -z "$file" ]] && continue
+
+            ./flatc "new/$file" --conform "master/$file"
+          done < ./new/.github/workflows/verify-list
