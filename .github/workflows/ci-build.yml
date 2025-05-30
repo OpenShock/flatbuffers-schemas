@@ -12,6 +12,9 @@ on:
   workflow_dispatch:
 
 name: ci-build
+permissions:
+  contents: read
+  actions: read
 
 env:
   DOTNET_VERSION: 9.0.x
