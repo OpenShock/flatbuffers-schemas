@@ -57,7 +57,7 @@ table BackendConfig {
   auth_token:string;
 
   /// Override the Live-Control-Gateway (LCG) URL
-  lcg_override:string;
+  lcg_override:string (deprecated);
 }
 
 table SerialInputConfig {
