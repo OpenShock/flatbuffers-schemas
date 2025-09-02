@@ -21,7 +21,6 @@ env:
   REGISTRY: ghcr.io
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
 
@@ -38,7 +37,7 @@ jobs:
         run: dotnet build OpenShock.Serialization.Flatbuffers.csproj -c Release -o ./publish
 
       - name: Upload Nuget artifacts
-        if: ${{ github.ref_type == 'branch' && github.event_name != 'pull_request' && github.ref_name == 'master' }}
+        if: ${{ (github.ref_type == 'branch' && github.event_name != 'pull_request' && github.ref_name == 'master') || (github.event_name == 'workflow_dispatch' && github.ref_type == 'tag') }}
         uses: actions/upload-artifact@v4
         with:
           name: CSharp Artifacts
