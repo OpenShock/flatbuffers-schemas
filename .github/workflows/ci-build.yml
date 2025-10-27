@@ -38,7 +38,7 @@ jobs:
 
       - name: Upload Nuget artifacts
         if: ${{ (github.ref_type == 'branch' && github.event_name != 'pull_request' && github.ref_name == 'master') || (github.event_name == 'workflow_dispatch' && github.ref_type == 'tag') }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: CSharp Artifacts
           path: |
