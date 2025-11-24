@@ -18,12 +18,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           path: new
 
       - name: Checkout current master
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: master
           path: master
