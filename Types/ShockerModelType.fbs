@@ -4,5 +4,5 @@ enum ShockerModelType : uint8 {
   CaiXianlin = 0,
   Petrainer = 1,
   Petrainer998DR = 2,
-  T330 = 3
+  WellturnT330 = 3
 }
