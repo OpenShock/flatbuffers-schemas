@@ -4,8 +4,8 @@
         <SingleProject>true</SingleProject>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <TargetFrameworks>net9.0;net8.0;netstandard2.1</TargetFrameworks>
-        <LangVersion>13</LangVersion>
+        <TargetFrameworks>net10.0;net9.0;net8.0;netstandard2.1</TargetFrameworks>
+        <LangVersion>default</LangVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Title>OpenShock.Serialization.Flatbuffers</Title>
         <Authors>OpenShock</Authors>
@@ -19,8 +19,8 @@
         <PackageTags>openshock</PackageTags>
         <PackageProjectUrl>https://openshock.org</PackageProjectUrl>
         <RepositoryUrl>https://github.com/OpenShock/flatbuffers-schemas</RepositoryUrl>
-        <Version>2.0.0-preview.5</Version>
-        <AssemblyVersion>2.0.0</AssemblyVersion>
+        <Version>2.1.0</Version>
+        <AssemblyVersion>2.1.0</AssemblyVersion>
         <Company>OpenShock</Company>
         <RootNamespace>OpenShock.Serialization.Flatbuffers</RootNamespace>
         <AssemblyName>OpenShock.Serialization.Flatbuffers</AssemblyName>
