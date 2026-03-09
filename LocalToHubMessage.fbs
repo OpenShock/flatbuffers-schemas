@@ -1,100 +1,11 @@
+include "./Common/ShockerCommand.fbs";
+
 attribute "fs_serializer";
 
 namespace OpenShock.Serialization.Local;
 
-table WifiScanCommand {
-  run:bool;
-}
-table WifiNetworkSaveCommand {
-  ssid:string;
-  password:string;
-  connect:bool;
-}
-table WifiNetworkForgetCommand {
-  ssid:string;
-}
-table WifiNetworkConnectCommand {
-  ssid:string;
-}
-table WifiNetworkDisconnectCommand {
-  placeholder:bool;
-}
-
-table OtaUpdateSetIsEnabledCommand {
-  enabled:bool;
-}
-table OtaUpdateSetDomainCommand {
-  domain:string;
-}
-table OtaUpdateSetUpdateChannelCommand {
-  channel:string;
-}
-table OtaUpdateSetCheckIntervalCommand {
-  interval:uint16;
-}
-table OtaUpdateSetAllowBackendManagementCommand {
-  allow:bool;
-}
-table OtaUpdateSetRequireManualApprovalCommand {
-  require:bool;
-}
-table OtaUpdateHandleUpdateRequestCommand {
-  accept:bool;
-}
-table OtaUpdateCheckForUpdatesCommand {
-  channel:string;
-}
-table OtaUpdateStartUpdateCommand {
-  channel:string;
-  version:string;
-}
-
-table AccountLinkCommand {
-  code:string;
-}
-table AccountUnlinkCommand {
-  placeholder:bool;
-}
-table SetRfTxPinCommand {
-  pin:int8;
-}
-table SetEstopEnabledCommand {
-  enabled:bool;
-}
-table SetEstopPinCommand {
-  pin:int8;
-}
-
 union LocalToHubMessagePayload {
-
-  // Wifi stuff
-  WifiScanCommand,
-  WifiNetworkSaveCommand,
-  WifiNetworkForgetCommand,
-  WifiNetworkConnectCommand,
-  WifiNetworkDisconnectCommand,
-
-  // OTA stuff
-  OtaUpdateSetIsEnabledCommand,
-  OtaUpdateSetDomainCommand,
-  OtaUpdateSetUpdateChannelCommand,
-  OtaUpdateSetCheckIntervalCommand,
-  OtaUpdateSetAllowBackendManagementCommand,
-  OtaUpdateSetRequireManualApprovalCommand,
-  OtaUpdateHandleUpdateRequestCommand,
-  OtaUpdateCheckForUpdatesCommand,
-  OtaUpdateStartUpdateCommand,
-
-  // Account linking stuff
-  AccountLinkCommand,
-  AccountUnlinkCommand,
-
-  // RF Transmitter stuff
-  SetRfTxPinCommand,
-
-  // E-Stop stuff
-  SetEstopEnabledCommand,
-  SetEstopPinCommand
+  Common.ShockerCommandList,
 }
 
 table LocalToHubMessage (fs_serializer) {

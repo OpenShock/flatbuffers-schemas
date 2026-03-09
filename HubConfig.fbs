@@ -5,7 +5,7 @@ table RFConfig {
   tx_pin:int8;
 
   /// Whether to transmit keepalive messages to keep the shockers from entering sleep mode
-  keepalive_enabled:bool;
+  keepalive_enabled:bool = true;
 }
 
 table EStopConfig {
@@ -15,10 +15,10 @@ table EStopConfig {
   gpio_pin:int8;
 
   /// Persistent state of the E-Stop button
-  active:bool;
+  active:bool = false;
 
   /// Set When EmergencyStop is a latching switch
-  latching:bool;
+  latching:bool = false;
 }
 
 table WiFiCredentials {
@@ -41,12 +41,24 @@ table WiFiConfig {
 
   /// WiFi network credentials
   credentials:[WiFiCredentials];
+
+  /// Access point password (empty = open network)
+  ap_password:string;
+
+  /// Disable WiFi Access Point mode completely
+  ap_disabled:bool = false;
+
+  /// Disable WiFi Station mode completely
+  sta_disabled:bool = false;
+
+  /// Don't connect to any cloud services
+  offline_mode:bool = false;
 }
 
 table CaptivePortalConfig {
   /// Whether the captive portal is forced to be enabled
   /// The captive portal will otherwise shut down when a gateway connection is established
-  always_enabled:bool;
+  always_enabled:bool = false;
 }
 
 table BackendConfig {
@@ -83,7 +95,7 @@ enum OtaUpdateStep:uint8 {
 // Represents configuration for Over-The-Air (OTA) updates.
 table OtaUpdateConfig {
   /// Indicates whether OTA updates are enabled.
-  is_enabled:bool;
+  is_enabled:bool = true;
 
   /// The domain name of the OTA Content Delivery Network (CDN).
   cdn_domain:string;
@@ -92,25 +104,33 @@ table OtaUpdateConfig {
   update_channel:OtaUpdateChannel;
 
   /// Indicates whether to check for updates on startup.
-  check_on_startup:bool;
+  check_on_startup:bool = false;
 
   /// Indicates whether to check for updates periodically.
-  check_periodically:bool;
+  check_periodically:bool = false;
 
   /// The interval in minutes between periodic update checks.
   check_interval:uint16;
 
   /// Indicates if the backend is authorized to manage the hub's update version on behalf of the user.
-  allow_backend_management:bool;
+  allow_backend_management:bool = true;
 
   /// Indicates if manual approval via serial input or captive portal is required before installing updates.
-  require_manual_approval:bool;
+  require_manual_approval:bool = false;
 
   /// Update process ID, used to track the update process server-side across reboots.
   update_id:int32;
 
   /// Indicates what step of the update process the hub is currently in, used to detect failed updates for status reporting.
   update_step:OtaUpdateStep;
+}
+
+table LanConfig {
+  /// Whether an API key is required for LAN endpoints
+  api_key_enabled:bool = false;
+
+  /// API key for authenticating LAN requests (generated or user-set)
+  api_key:string;
 }
 
 table HubConfig {
@@ -134,6 +154,9 @@ table HubConfig {
   
   /// E-Stop configuration
   estop:EStopConfig;
+
+  /// LAN API configuration
+  lan:LanConfig;
 }
 
 root_type HubConfig;

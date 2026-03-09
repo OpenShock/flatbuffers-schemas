@@ -15,6 +15,7 @@ table ReadyMessage {
   config:Configuration.HubConfig;
   gpio_valid_inputs:[int8];
   gpio_valid_outputs:[int8];
+  has_standardized_pins:bool;
 }
 
 table ErrorMessage {
@@ -35,40 +36,6 @@ table WifiLostIpEvent {
   ip:string;
 }
 
-enum AccountLinkResultCode : uint8 {
-  Success = 0,
-  CodeRequired = 1,
-  InvalidCodeLength = 2,
-  NoInternetConnection = 3,
-  InvalidCode = 4,
-  RateLimited = 5,
-  InternalError = 6
-}
-
-table AccountLinkCommandResult {
-  result:AccountLinkResultCode;
-}
-
-enum SetGPIOResultCode : uint8 {
-  Success = 0,
-  InvalidPin = 1,
-  InternalError = 2
-}
-table SetRfTxPinCommandResult {
-  pin:int8;
-  result:SetGPIOResultCode;
-}
-
-table SetEstopEnabledCommandResult {
-  enabled:bool;
-  success:bool;
-}
-
-table SetEstopPinCommandResult {
-  gpio_pin:int8;
-  result:SetGPIOResultCode;
-}
-
 union HubToLocalMessagePayload {
 
   // General stuff
@@ -80,16 +47,6 @@ union HubToLocalMessagePayload {
   WifiNetworkEvent,
   WifiGotIpEvent,
   WifiLostIpEvent,
-
-  // Account linking stuff
-  AccountLinkCommandResult,
-
-  // RF transmitter stuff
-  SetRfTxPinCommandResult,
-
-  // E-stop stuff
-  SetEstopEnabledCommandResult,
-  SetEstopPinCommandResult
 }
 
 table HubToLocalMessage (fs_serializer) {
