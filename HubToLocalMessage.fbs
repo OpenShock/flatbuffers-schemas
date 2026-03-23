@@ -36,6 +36,11 @@ table WifiLostIpEvent {
   ip:string;
 }
 
+/// Sent when the auth token status changes (set, cleared, or validated on gateway connect)
+table AccountLinkStatusEvent {
+  linked:bool;
+}
+
 union HubToLocalMessagePayload {
 
   // General stuff
@@ -47,6 +52,9 @@ union HubToLocalMessagePayload {
   WifiNetworkEvent,
   WifiGotIpEvent,
   WifiLostIpEvent,
+
+  // Account stuff
+  AccountLinkStatusEvent,
 }
 
 table HubToLocalMessage (fs_serializer) {
