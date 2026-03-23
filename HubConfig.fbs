@@ -1,3 +1,5 @@
+include "Types/WifiAuthMode.fbs";
+
 namespace OpenShock.Serialization.Configuration;
 
 table RFConfig {
@@ -35,6 +37,9 @@ table WiFiCredentials {
 
   /// Password of the WiFi network
   password:string;
+
+  /// Auth mode of the network when credentials were saved. Used to reject evil twins with weaker security.
+  auth_mode:OpenShock.Serialization.Types.WifiAuthMode = UNKNOWN;
 
   /// Pinned BSSID of the last successfully connected AP. All zeros means no pin.
   bssid:MacAddress;
