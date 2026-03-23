@@ -21,6 +21,11 @@ table EStopConfig {
   latching:bool = false;
 }
 
+/// 6-byte MAC address (BSSID)
+struct MacAddress {
+  bytes:[uint8:6];
+}
+
 table WiFiCredentials {
   /// ID of the WiFi network credentials, used for referencing the credentials with a low memory footprint
   id:uint8;
@@ -30,6 +35,9 @@ table WiFiCredentials {
 
   /// Password of the WiFi network
   password:string;
+
+  /// Pinned BSSID of the last successfully connected AP. All zeros means no pin.
+  bssid:MacAddress;
 }
 
 table WiFiConfig {
