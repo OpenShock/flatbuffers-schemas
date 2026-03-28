@@ -1,5 +1,4 @@
-include "./Types/ShockerCommandType.fbs";
-include "./Types/ShockerModelType.fbs";
+include "./Common/ShockerCommand.fbs";
 include "./Types/SemVer.fbs";
 
 attribute "fs_serializer";
@@ -28,18 +27,6 @@ table Trigger {
   type:TriggerType;
 }
 
-table ShockerCommand {
-  model:Types.ShockerModelType;
-  id:uint16;
-  type:Types.ShockerCommandType;
-  intensity:uint8;
-  duration:uint16;
-}
-
-table ShockerCommandList {
-  commands:[ShockerCommand] (required);
-}
-
 table OtaUpdateRequest {
   version:Types.SemVer (required);
 }
@@ -52,7 +39,7 @@ union GatewayToHubMessagePayload {
   Trigger,
 
   /// Send a list of shocker commands to the hub
-  ShockerCommandList,
+  Common.ShockerCommandList,
 
   /// Request an OTA update to be performed
   OtaUpdateRequest
