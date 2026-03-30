@@ -110,8 +110,8 @@ table OtaUpdateConfig {
   /// Indicates whether OTA updates are enabled.
   is_enabled:bool = true;
 
-  /// The domain name of the OTA Content Delivery Network (CDN).
-  cdn_domain:string;
+  /// The domain name of the firmware repository server.
+  repo_domain:string;
 
   /// The update channel to use.
   update_channel:OtaUpdateChannel;
