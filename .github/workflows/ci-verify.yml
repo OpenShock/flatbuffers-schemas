@@ -29,15 +29,11 @@ jobs:
           path: master
 
       - name: Download latest flatc g++ binary
-        uses: robinraju/release-downloader@28fc21f50d76778e7023361aa1f863e717d3d56f # v1.13
-        with:
-          repository: "google/flatbuffers"
-          latest: true
-          fileName: "Linux.flatc.binary.g++*.zip"
-          extract: true
-          # Disabling the default wildcards (*.tar.gz, *.zip)
-          tarBall: false
-          zipBall: false
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download --repo google/flatbuffers --pattern 'Linux.flatc.binary.g++*.zip'
+          unzip -o Linux.flatc.binary.g++*.zip
 
       - name: Compare specified .fbs files for conformity
         run: |
