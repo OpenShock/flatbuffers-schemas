@@ -1,21 +1,44 @@
 include "./Types/WifiScanStatus.fbs";
 include "./Types/WifiNetwork.fbs";
 include "./Types/WifiNetworkEventType.fbs";
-include "./HubConfig.fbs";
 
 attribute "fs_serializer";
 
 namespace OpenShock.Serialization.Local;
+
+enum OtaChannel : uint8 {
+  Stable = 0,
+  Beta = 1,
+  Develop = 2
+}
+
+/// The OTA settings the portal shows and edits.
+table OtaSettings {
+  enabled:bool;
+  cdn_domain:string;
+  channel:OtaChannel;
+  check_interval:uint16;
+  allow_backend_management:bool;
+  require_manual_approval:bool;
+}
 
 table ReadyMessage {
   poggies:bool;
   connected_wifi:Types.WifiNetwork;
   account_linked:bool;
 
-  config:Configuration.HubConfig;
   gpio_valid_inputs:[int8];
   gpio_valid_outputs:[int8];
   has_standardized_pins:bool;
+
+  rf_tx_pin:int8 = -1;
+  estop_enabled:bool;
+  estop_gpio_pin:int8 = -1;
+
+  /// SSIDs of the saved networks. Passwords never leave the hub.
+  saved_ssids:[string];
+
+  ota:OtaSettings;
 }
 
 table ErrorMessage {

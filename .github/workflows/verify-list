@@ -1,5 +1,2 @@
-HubConfig.fbs
 HubToGatewayMessage.fbs
 GatewayToHubMessage.fbs
-HubToLocalMessage.fbs
-LocalToHubMessage.fbs

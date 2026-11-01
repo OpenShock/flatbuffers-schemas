@@ -16,10 +16,10 @@ Targets: net10.0, net9.0, net8.0, netstandard2.1. FlatSharp v7.9.0.
 
 ## Schema Conformity Verification
 
-CI runs `flatc --conform` against the master branch for schemas listed in `.github/workflows/verify-list`. This catches backward-incompatible changes. To test locally:
+CI runs `flatc --conform` against the master branch for schemas listed in `.github/workflows/verify-list`. This catches backward-incompatible changes. `HubToLocalMessage.fbs` and `LocalToHubMessage.fbs` are exempt, as they have no compatibility requirements. To test locally:
 
 ```bash
-flatc new/HubConfig.fbs --conform master/HubConfig.fbs
+flatc new/HubToGatewayMessage.fbs --conform master/HubToGatewayMessage.fbs
 ```
 
 ## Protocol Architecture
@@ -34,18 +34,16 @@ Hub (Firmware) ──FlatBuffers──> Local Web UI (Captive Portal)
 
 - **Gateway <-> Hub**: Shocker commands, OTA updates, keep-alive pings, boot status
 - **Hub <-> Local**: WiFi config, device ready state, account linking, shocker commands
-- **HubConfig.fbs**: Persisted device configuration (RF, WiFi, OTA, E-Stop, LAN, etc.), also sent inside `HubToLocalMessage.ReadyMessage`
 
 ## Schema Conventions
 
-- **Namespaces**: `OpenShock.Serialization.{Types,Common,Configuration,Gateway,Local}`
+- **Namespaces**: `OpenShock.Serialization.{Types,Common,Gateway,Local}`
 - **Message pattern**: Each protocol direction has a root table with an `(fs_serializer)` attribute containing a union payload (e.g., `GatewayToHubMessagePayload`)
 - **Shared types**: `Common/` for structures used across protocols (e.g., `ShockerCommand`), `Types/` for enums and small structs
-- **Sensitive fields**: `api_key`, `auth_token`, `password` — firmware controls exposure via `withSensitiveData` flag during serialization
 
 ## FlatBuffers Compatibility Rules
 
-These are critical — the firmware reads old config buffers after OTA updates:
+These are critical — hubs and gateways on different versions must keep understanding each other's messages:
 
 - **Adding fields**: Always append to end of tables. Never reorder.
 - **Default values**: FlatBuffers omits fields matching the default from the binary. Changing a default changes how old buffers with absent fields are read. Only change defaults for fields that weren't previously in use.

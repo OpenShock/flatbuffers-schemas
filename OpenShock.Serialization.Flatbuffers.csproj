@@ -39,7 +39,6 @@
         <FlatSharpSchema Include="GatewayToHubMessage.fbs" />
         <FlatSharpSchema Include="HubToLocalMessage.fbs" />
         <FlatSharpSchema Include="LocalToHubMessage.fbs" />
-        <FlatSharpSchema Include="HubConfig.fbs" />
         <FlatSharpSchema Include="DeprecatedV1Messages.fbs" />
     </ItemGroup>
 
