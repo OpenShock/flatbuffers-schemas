@@ -36,14 +36,15 @@ table LedBrightness {
   normal:uint8;
 }
 
-/// The status LED settings the portal shows and edits.
+/// The status LED settings the portal shows and edits. Only the LEDs the board has are present, so the portal shows
+/// no option for an LED that isn't there.
 table LedSettings {
   mode:LedMode;
-  has_mono:bool;
-  has_rgb:bool;
+  /// The single-color built-in LED; absent when the board has none.
   mono:LedBrightness;
+  /// The WS2812B RGB LED; absent when the board has none.
   rgb:LedBrightness;
-  /// The hub warns about an RGB brightness above this percent.
+  /// The hub warns about an RGB brightness above this percent. Only meaningful with `rgb`.
   rgb_warn_above:uint8;
   /// How long a preview holds the LEDs after the last preview message.
   preview_ms:uint32;

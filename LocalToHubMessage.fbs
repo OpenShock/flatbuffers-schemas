@@ -32,7 +32,7 @@ table LedPreviewColorMessage {
   red:uint8;
   green:uint8;
   blue:uint8;
-  /// The LED to light; the other stays dark.
+  /// The LED to light; the other stays dark. A target the board doesn't have lights nothing.
   target:LedTarget;
   /// Percent for this preview only; null is each LED's saved normal brightness.
   brightness:uint8 = null;
