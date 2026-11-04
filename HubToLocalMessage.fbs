@@ -47,7 +47,7 @@ table LedSettings {
   /// The hub warns about an RGB brightness above this percent. Only meaningful with `rgb`.
   rgb_warn_above:uint8;
   /// How long a preview holds the LEDs after the last preview message.
-  preview_ms:uint32;
+  preview_ms:uint16;
 }
 
 table ReadyMessage {
