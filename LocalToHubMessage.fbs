@@ -4,8 +4,48 @@ attribute "fs_serializer";
 
 namespace OpenShock.Serialization.Local;
 
+enum LedPreviewPattern : uint8 {
+  WifiDisconnected = 0,
+  WifiScanning = 1,
+  NoBackend = 2,
+  Connected = 3,
+  EStopped = 4,
+  EStopClearing = 5,
+  EStopAwaitingRelease = 6,
+  CriticalError = 7
+}
+
+enum LedTarget : uint8 {
+  All = 0,
+  Mono = 1,
+  Rgb = 2
+}
+
+/// Shows a state's pattern on the status LEDs whatever the LED mode, at the saved brightness. Nothing is saved.
+table LedPreviewPatternMessage {
+  pattern:LedPreviewPattern;
+}
+
+/// Shows a solid color on the status LEDs: the RGB LED in the color, the mono LED on unless it is black.
+/// Sent at a high rate while the user drags a color or brightness control. Nothing is saved.
+table LedPreviewColorMessage {
+  red:uint8;
+  green:uint8;
+  blue:uint8;
+  /// The LED to light; the other stays dark.
+  target:LedTarget;
+  /// Percent for this preview only; null is each LED's saved normal brightness.
+  brightness:uint8 = null;
+}
+
+/// Ends a preview early.
+table LedPreviewStopMessage {}
+
 union LocalToHubMessagePayload {
   Common.ShockerCommandList,
+  LedPreviewPatternMessage,
+  LedPreviewColorMessage,
+  LedPreviewStopMessage,
 }
 
 table LocalToHubMessage (fs_serializer) {
