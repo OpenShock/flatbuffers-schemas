@@ -29,9 +29,10 @@ table LedPreviewPatternMessage {
 /// Shows a solid color on the status LEDs: the RGB LED in the color, the mono LED on unless it is black.
 /// Sent at a high rate while the user drags a color or brightness control. Nothing is saved.
 table LedPreviewColorMessage {
-  /// RGB10 packed: red in bits 20-29, green in bits 10-19, blue in bits 0-9 (0-1023 each), bits 30-31 zero. The hub
-  /// dithers the RGB LED, so it shows more than the LED's 8 bits.
-  color_rgb10:uint32;
+  /// 16 bits per channel (0-65535); the hub reduces them to what the RGB LED shows.
+  red:uint16;
+  green:uint16;
+  blue:uint16;
   /// The LED to light; the other stays dark. A target the board doesn't have lights nothing.
   target:LedTarget;
   /// 16-bit brightness (0-65535) for this preview only; null is each LED's saved normal brightness.
