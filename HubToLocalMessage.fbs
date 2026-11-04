@@ -28,12 +28,12 @@ enum LedMode : uint8 {
   Off = 2
 }
 
-/// Brightness of one status LED, in percent of its full output.
+/// Brightness of one status LED, 16-bit: 0-65535 of its full output.
 table LedBrightness {
   /// E-Stop and critical-error patterns
-  critical:uint8;
+  critical:uint16;
   /// Every other pattern
-  normal:uint8;
+  normal:uint16;
 }
 
 /// The status LED settings the portal shows and edits. Only the LEDs the board has are present, so the portal shows
@@ -44,8 +44,8 @@ table LedSettings {
   mono:LedBrightness;
   /// The WS2812B RGB LED; absent when the board has none.
   rgb:LedBrightness;
-  /// The hub warns about an RGB brightness above this percent. Only meaningful with `rgb`.
-  rgb_warn_above:uint8;
+  /// The hub warns about an RGB brightness above this (0-65535). Only meaningful with `rgb`.
+  rgb_warn_above:uint16;
   /// How long a preview holds the LEDs after the last preview message.
   preview_ms:uint16;
 }
