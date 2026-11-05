@@ -1,0 +1,36 @@
+namespace OpenShock.Serialization.Types;
+
+enum LedMode : uint8 {
+  All = 0,
+  CriticalOnly = 1,
+  Off = 2
+}
+
+/// A hub state's LED pattern.
+enum LedPattern : uint8 {
+  WifiDisconnected = 0,
+  WifiScanning = 1,
+  NoBackend = 2,
+  Connected = 3,
+  EStopped = 4,
+  EStopClearing = 5,
+  EStopAwaitingRelease = 6,
+  CriticalError = 7
+}
+
+/// The two things a portal can put on the LEDs without saving them. Each belongs to the client that sent it and ends
+/// on its own after a while unless that client keeps sending.
+enum LedOverrideLayer : uint8 {
+  /// A previewed pattern or color, shown instead of the hub's state
+  Display = 0,
+  /// Unsaved brightness, applied to whatever the LEDs show (the hub's state or a preview)
+  Draft = 1
+}
+
+/// Brightness of one status LED, 16-bit: 0-65535 of its full output.
+table LedBrightness {
+  /// E-Stop and critical-error patterns
+  critical:uint16;
+  /// Every other pattern
+  normal:uint16;
+}

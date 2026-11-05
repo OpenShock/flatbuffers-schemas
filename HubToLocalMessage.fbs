@@ -1,6 +1,7 @@
 include "./Types/WifiScanStatus.fbs";
 include "./Types/WifiNetwork.fbs";
 include "./Types/WifiNetworkEventType.fbs";
+include "./Types/StatusLed.fbs";
 
 attribute "fs_serializer";
 
@@ -22,32 +23,90 @@ table OtaSettings {
   require_manual_approval:bool;
 }
 
-enum LedMode : uint8 {
-  All = 0,
-  CriticalOnly = 1,
-  Off = 2
-}
-
-/// Brightness of one status LED, 16-bit: 0-65535 of its full output.
-table LedBrightness {
-  /// E-Stop and critical-error patterns
-  critical:uint16;
-  /// Every other pattern
-  normal:uint16;
-}
-
 /// The status LED settings the portal shows and edits. Only the LEDs the board has are present, so the portal shows
 /// no option for an LED that isn't there.
 table LedSettings {
-  mode:LedMode;
+  mode:Types.LedMode;
   /// The single-color built-in LED; absent when the board has none.
-  mono:LedBrightness;
+  mono:Types.LedBrightness;
   /// The WS2812B RGB LED; absent when the board has none.
-  rgb:LedBrightness;
+  rgb:Types.LedBrightness;
   /// The hub warns about an RGB brightness above this (0-65535). Only meaningful with `rgb`.
   rgb_warn_above:uint16;
-  /// How long a preview holds the LEDs after the last preview message.
-  preview_ms:uint16;
+}
+
+/// What the status LEDs show right now.
+enum LedShowing : uint8 {
+  /// The hub's state, in LedStatus.pattern
+  Live = 0,
+  /// The hub's state, but the LED mode hides it, so the LEDs are dark
+  Hidden = 1,
+  /// A previewed pattern, in LedStatus.pattern
+  Pattern = 2,
+  /// A previewed color
+  Color = 3,
+  /// The LED test (serial console); overrides wait until it is done
+  Test = 4
+}
+
+/// An override on one layer, while it lasts.
+table LedOverride {
+  /// The client that holds it (ReadyMessage.client_id)
+  owner:uint8;
+  /// How long it lasts after the owner's last message for it (a pattern preview: from its start)
+  timeout_ms:uint16;
+}
+
+table LedStatus {
+  showing:LedShowing;
+  /// The pattern shown, for Live and Pattern
+  pattern:Types.LedPattern;
+  /// Present while a preview holds the LEDs
+  display:LedOverride;
+  /// Present while unsaved brightness is applied
+  draft:LedOverride;
+}
+
+enum LedOverrideEnd : uint8 {
+  /// Its owner sent nothing for it within its timeout
+  Expired = 0,
+  /// Its owner ended it (LedOverrideStopMessage)
+  Stopped = 1,
+  /// Another client took the layer over
+  Replaced = 2,
+  /// Its owner disconnected
+  OwnerLeft = 3,
+  /// Saved (a draft only)
+  Committed = 4,
+  /// The LED test took over the LEDs
+  LedTest = 5
+}
+
+table LedOverrideEnded {
+  layer:Types.LedOverrideLayer;
+  reason:LedOverrideEnd;
+  owner:uint8;
+  /// The seq of the owner's last message for it
+  seq:uint16;
+}
+
+enum LedRequestError : uint8 {
+  /// The board has none of the LEDs the request is for
+  NoLed = 0,
+  /// The LED test holds the LEDs
+  LedTestRunning = 1,
+  /// Nothing to commit or stop: the client holds no override on that layer
+  NotHeld = 2,
+  /// The settings could not be saved
+  SaveFailed = 3,
+  /// A value the hub doesn't know
+  InvalidValue = 4
+}
+
+table LedRequestFailed {
+  owner:uint8;
+  seq:uint16;
+  error:LedRequestError;
 }
 
 table ReadyMessage {
@@ -69,6 +128,10 @@ table ReadyMessage {
   ota:OtaSettings;
 
   led:LedSettings;
+  led_status:LedStatus;
+
+  /// This connection's id, as LedOverride.owner and the owner fields of LED events name it
+  client_id:uint8;
 }
 
 table ErrorMessage {
@@ -94,6 +157,16 @@ table LedSettingsChangedEvent {
   led:LedSettings;
 }
 
+/// Sent to every connected client when what the LEDs show changes, an override starts or ends, or an LED request
+/// fails. Not sent for every frame of a dragged control: a client's repeated messages change nothing here.
+table LedStatusEvent {
+  status:LedStatus;
+  /// Present when this event reports an override ending
+  ended:LedOverrideEnded;
+  /// Present when this event reports a request failing
+  failed:LedRequestFailed;
+}
+
 /// Sent when the auth token status changes (set, cleared, or validated on gateway connect)
 table AccountLinkStatusEvent {
   linked:bool;
@@ -116,6 +189,7 @@ union HubToLocalMessagePayload {
 
   // LED stuff
   LedSettingsChangedEvent,
+  LedStatusEvent,
 }
 
 table HubToLocalMessage (fs_serializer) {

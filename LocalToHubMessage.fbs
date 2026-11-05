@@ -1,19 +1,9 @@
 include "./Common/ShockerCommand.fbs";
+include "./Types/StatusLed.fbs";
 
 attribute "fs_serializer";
 
 namespace OpenShock.Serialization.Local;
-
-enum LedPreviewPattern : uint8 {
-  WifiDisconnected = 0,
-  WifiScanning = 1,
-  NoBackend = 2,
-  Connected = 3,
-  EStopped = 4,
-  EStopClearing = 5,
-  EStopAwaitingRelease = 6,
-  CriticalError = 7
-}
 
 enum LedTarget : uint8 {
   All = 0,
@@ -21,32 +11,65 @@ enum LedTarget : uint8 {
   Rgb = 2
 }
 
-/// Shows a state's pattern on the status LEDs whatever the LED mode, at the saved brightness. Nothing is saved.
-table LedPreviewPatternMessage {
-  pattern:LedPreviewPattern;
+enum LedSignal : uint8 {
+  Normal = 0,
+  Critical = 1
 }
 
-/// Shows a solid color on the status LEDs: the RGB LED in the color, the mono LED on unless it is black.
-/// Sent at a high rate while the user drags a color or brightness control. Nothing is saved.
+/// Shows a state's pattern whatever the LED mode, for about two of its cycles. Nothing is saved.
+table LedPreviewPatternMessage {
+  seq:uint16;
+  pattern:Types.LedPattern;
+}
+
+/// Shows a solid color: the RGB LED in the color, the mono LED on unless it is black. Sent at a high rate while the
+/// user drags a color or brightness control; the hub ends it two seconds after the last one. Nothing is saved.
 table LedPreviewColorMessage {
+  seq:uint16;
   /// 16 bits per channel (0-65535); the hub reduces them to what the RGB LED shows.
   red:uint16;
   green:uint16;
   blue:uint16;
   /// The LED to light; the other stays dark. A target the board doesn't have lights nothing.
   target:LedTarget;
-  /// 16-bit brightness (0-65535) for this preview only; null is each LED's saved normal brightness.
-  brightness:uint16 = null;
+  /// Which brightness setting it shows at: the client's draft if it holds one, else the saved one.
+  signal:LedSignal;
 }
 
-/// Ends a preview early.
-table LedPreviewStopMessage {}
+/// Unsaved brightness for the LEDs the board has, shown on whatever the LEDs show. Replaces the client's previous
+/// draft. The hub drops it (the LEDs return to the saved brightness) ten seconds after the last one unless it is saved
+/// with LedCommitDraftMessage.
+table LedDraftMessage {
+  seq:uint16;
+  mono:Types.LedBrightness;
+  rgb:Types.LedBrightness;
+}
+
+/// Ends the client's own override on `layer` early.
+table LedOverrideStopMessage {
+  seq:uint16;
+  layer:Types.LedOverrideLayer;
+}
+
+/// Saves the draft the hub holds for this client. It ends as Committed, and LedSettingsChangedEvent follows.
+table LedCommitDraftMessage {
+  seq:uint16;
+}
+
+/// Saves the LED mode. LedSettingsChangedEvent follows.
+table LedSetModeMessage {
+  seq:uint16;
+  mode:Types.LedMode;
+}
 
 union LocalToHubMessagePayload {
   Common.ShockerCommandList,
   LedPreviewPatternMessage,
   LedPreviewColorMessage,
-  LedPreviewStopMessage,
+  LedDraftMessage,
+  LedOverrideStopMessage,
+  LedCommitDraftMessage,
+  LedSetModeMessage,
 }
 
 table LocalToHubMessage (fs_serializer) {
