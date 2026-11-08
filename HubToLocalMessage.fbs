@@ -23,6 +23,21 @@ table OtaSettings {
   require_manual_approval:bool;
 }
 
+enum AccessPointProtection : uint8 {
+  Open = 0,
+  DefaultPassword = 1,
+  CustomPassword = 2
+}
+
+/// The captive portal's access point as configured. The password never leaves the hub.
+table AccessPointSettings {
+  /// The name set for it; empty for the default, which is default_ssid.
+  ssid:string;
+  /// The default name: the prefix with this hub's MAC.
+  default_ssid:string;
+  protection:AccessPointProtection;
+}
+
 /// The status LED settings the portal shows and edits. Only the LEDs the board has are present, so the portal shows
 /// no option for an LED that isn't there.
 table LedSettings {
@@ -126,6 +141,8 @@ table ReadyMessage {
   saved_ssids:[string];
 
   ota:OtaSettings;
+
+  access_point:AccessPointSettings;
 
   led:LedSettings;
   led_status:LedStatus;
