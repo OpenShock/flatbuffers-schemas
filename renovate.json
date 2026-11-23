@@ -1,4 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["local>OpenShock/org-config//renovate/default", "local>OpenShock/org-config//renovate/automerge"]
+  "extends": ["local>OpenShock/org-config//renovate/default", "local>OpenShock/org-config//renovate/automerge"],
+  "packageRules": [
+    {
+      "description": "FlatSharp changes generated code, so it gets its own PR and a human",
+      "matchPackageNames": ["FlatSharp.**"],
+      "groupName": "flatsharp",
+      "automerge": false
+    }
+  ]
 }
